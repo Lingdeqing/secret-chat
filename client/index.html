@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="recordArea">
+
+    </div>
+    <textarea id="inputArea"></textarea>
+    <script src="https://cdn.bootcss.com/socket.io/2.3.0/socket.io.js" crossorigin="anonymous"></script>
+    <script>
+ var socket = io('ws://localhost:3000');
+
+ socket.emit('send', 'hello');
+          socket.on('getMsg', data => {
+              console.log('服务端消息：',  data);
+          })
+    </script>
+</body>
+</html>
