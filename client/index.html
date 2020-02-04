@@ -1,24 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            height: 100%;
+            font-family: "Microsoft Yahei", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-size: 12px;
+            line-height: 1.5;
+            color: #34495e;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            -moz-font-feature-settings: "liga", "kern";
+            cursor: default;
+        }
+
+        html,
+        body,
+        input,
+        div {
+            box-sizing: border-box;
+        }
+
+        .flexCenter {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #login {
+            height: 100%;
+            /* display: none; */
+        }
+
+        .loginBox {
+            width: 400px;
+            height: 300px;
+        }
+
+        .loginBox input {
+            margin-bottom: 28px;
+            width: 340px;
+            height: 44px;
+            line-height: 44px;
+            text-align: center;
+            font-size: 20px;
+            border: 0;
+            border-bottom: 1px solid #e5e5e5;
+            outline: none;
+        }
+
+        .loginBox button {
+            cursor: pointer;
+            width: 340px;
+            height: 50px;
+            border: 0;
+            background: #3D7EFF;
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        .loginBox button:disabled {
+            cursor: not-allowed;
+            color: #a0a0a0;
+            background: #e5e5e5;
+        }
+    </style>
 </head>
+
 <body>
-    <div id="recordArea">
+    <div id="main">
+        <div id="chat">
+            <div id="rooms">
+                <div></div>
+            </div>
+            <div id="chatForm">
+                <div class="hd">
+                    <div class="title"></div>
+                </div>
+                <div class="contentArea">
 
+                </div>
+                <div class="inputArea">
+                    <textarea></textarea>
+                </div>
+            </div>
+        </div>
     </div>
-    <textarea id="inputArea"></textarea>
-    <script src="https://cdn.bootcss.com/socket.io/2.3.0/socket.io.js" crossorigin="anonymous"></script>
-    <script>
- var socket = io('ws://localhost:3000');
 
- socket.emit('send', 'hello');
-          socket.on('getMsg', data => {
-              console.log('服务端消息：',  data);
-          })
+    <div id="login" class="flexCenter">
+        <div class="loginBox flexCenter">
+            <div>
+                <div><input type="text" placeholder="起个昵称吧~" autofocus></div>
+                <div><button type="button" disabled>确认</button></div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.bootcss.com/socket.io/2.3.0/socket.io.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/jquery@3.4.1/dist/jquery.min.js" crossorigin="anonymous"></script>
+    <script>
+        // 用户逻辑
+        var userInfo = localStorage.getItem('userInfo')
+        if(userInfo){
+            userInfo = JSON.parse(userInfo)
+        } else {
+            $('#login').show()
+            $('#login').show()
+        }
+
+        var socket = io('ws://localhost:3000');
+
+        socket.emit('send', 'hello');
+        socket.on('getMsg', data => {
+            console.log('服务端消息：', data);
+        })
+
+
+        
     </script>
 </body>
+
 </html>
